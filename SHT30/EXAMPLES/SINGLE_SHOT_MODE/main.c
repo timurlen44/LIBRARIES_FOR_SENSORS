@@ -55,7 +55,7 @@ static void MX_I2C1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint32_t SHT30_Serial_Num = 0;
+uint32_t SHT30_Serial_Num = 0;// Serial number of sht30 chip.
 double C;//Celcius
 double F;//Fahrenheit
 double K;//Kelvin
@@ -93,25 +93,15 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   while(SHT30_Init(&hi2c1) == SHT30_ERR);
-  SHT30_Periodic_Acquisitioun_Mode_Settings(MPS_10, HIGH_REPEATABILITY);
+  SHT30_Single_Shot_Mode_Settings(CLOCK_STRETCHING_IS_ENABLE, HIGH_REPEATABILITY);
   SHT30_Serial_Num = SHT30_Get_Chip_Identification_Number();
-  //SHT30_Single_Shot_Mode_Settings(CLOCK_STRETCHING_IS_ENABLE, HIGH_REPEATABILITY);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  /*
-	  if(SHT30_Read_All_With_Periodic_Acquisition_Mode() == SHT30_OK)
-	  {
-		  C = SHT30_Get_Temperature_In_Celcius();
-		  F = SHT30_Get_Temperature_In_Fahrenheit();
-		  K = SHT30_Get_Temperature_In_Kelvin();
-		  H = SHT30_Get_Humidity();
-	  }
-	  HAL_Delay(2000);
-	  */
 	  if(SHT30_Read_All_With_Single_Shot_Mode() == SHT30_OK)
 	  {
 		  C = SHT30_Get_Temperature_In_Celcius();
