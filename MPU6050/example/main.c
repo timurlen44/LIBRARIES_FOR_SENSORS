@@ -94,7 +94,6 @@ double YAW_LOW_PASS_FILTER;
 
 double acc_offset_x, acc_offset_y, acc_offset_z;
 double gyro_offset_x, gyro_offset_y, gyro_offset_z;
-uint16_t pulse = 500;
 /* USER CODE END 0 */
 
 /**
