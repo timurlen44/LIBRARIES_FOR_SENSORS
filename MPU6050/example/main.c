@@ -151,8 +151,6 @@ int main(void)
   double MULTIPLE_COEFFICIENT_OF_PREVIOUS_DATA = 0.04;
   double MULTIPLE_COEFFICIENT_OF_PRESENT_DATA = 0.96;
   MPU6050_Set_Low_Pass_Filter_Coefficient(MULTIPLE_COEFFICIENT_OF_PREVIOUS_DATA, MULTIPLE_COEFFICIENT_OF_PRESENT_DATA);
-
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -191,7 +189,7 @@ int main(void)
 		  //Euler angles without filter
 		  ROLL  = MPU6050_Get_Roll();
 		  PITCH = MPU6050_Get_Pitch();
-		  PITCH   = MPU6050_Get_Yaw();
+		  YAW   = MPU6050_Get_Yaw();
 
 		  //Euler angles with complemantary filter.
 		  ROLL_COMPLEMANTARY_FILTER  = MPU6050_Get_Roll_With_Complemantary_Filter();
@@ -202,17 +200,6 @@ int main(void)
 		  ROLL_LOW_PASS_FILTER  = MPU6050_Get_Roll_With_Low_Pass_Filter();
 		  PITCH_LOW_PASS_FILTER = MPU6050_Get_Pitch_With_Low_Pass_Filter();
 		  YAW_LOW_PASS_FILTER   = MPU6050_Get_Yaw_With_Low_Pass_Filter();
-		  uint16_t previous_pulse = pulse;
-
-		  pulse = (uint16_t) ((ROLL_COMPLEMANTARY_FILTER + 90.0)*(2500 - 500)/(180)+500);
-		  uint16_t pwm_pulse = previous_pulse * 0.7 + pulse*0.3;
-		  if( pulse == 2500)
-		  {
-			  pulse = 500;
-		  }
-		  //__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,pulse);
-		  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,pwm_pulse);
-		  pulse++;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
