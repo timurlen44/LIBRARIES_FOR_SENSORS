@@ -131,7 +131,6 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-  //HAL_Delay(2000);
   if(MPU6050_INIT(MPU6050_ADDR, 100, FS_SEL_250, AFS_SEL_2g) != MPU6050_OK)
   {
 	  while(1);
@@ -139,14 +138,19 @@ int main(void)
 
 
   /*
+  //these are the offset values which i calculated for my mpu6050
   double acc_offset_x = 0.024008789062500001, acc_offset_y = -0.056934814453125003, acc_offset_z = -0.053457031250000009;
   double gyro_offset_x = -4.3777480916030518, gyro_offset_y = -0.53461832061068693, gyro_offset_z = 0.22587786259541978;
   */
+
+  // Calculating The Offset begin
+  // !!! Important !!! =====> before calculating the offset values, you should place the device on a flat surface and never move it.
   HAL_Delay(1000);
   //Calculating offset
   MPU6050_Calculate_Offsets(&acc_offset_x, &acc_offset_y, &acc_offset_z, &gyro_offset_x, &gyro_offset_y, &gyro_offset_z);
   MPU6050_Set_Offsets(acc_offset_x, acc_offset_y, acc_offset_z, gyro_offset_x, gyro_offset_y, gyro_offset_z);
-  HAL_Delay(1000);
+  //Calculating The Offsets end
+
 
   double MULTIPLE_COEFFICIENT_OF_PREVIOUS_DATA = 0.04;
   double MULTIPLE_COEFFICIENT_OF_PRESENT_DATA = 0.96;
