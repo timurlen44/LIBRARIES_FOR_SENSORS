@@ -1,4 +1,4 @@
-#STM32CubeMX Settings
+#STM32CubeMX Settings <br>
 ![1](https://github.com/user-attachments/assets/e25208fb-bae2-485d-8364-21940ab9d9bf)
 
 
